@@ -79,7 +79,7 @@ Token scanner(ifstream &inFile, int &lineNum){
       if (currCharacter == '#'){
          do{
             inFile.get(currCharacter);
-         } while (currCharacter != '\n');
+         }while (currCharacter != '\n');
          //currCharacter is set to # so get the next character and continue
          lineNum++;
          inFile.get(currCharacter);
@@ -87,11 +87,11 @@ Token scanner(ifstream &inFile, int &lineNum){
       //set fsaColumn variable to the column based on the current character
       int fsaColumn = getColumn(currCharacter); 
       //fasColumn 24 is when the end of the file is reached
-      if (inFile.eof()){
+      if(inFile.eof()){
          fsaColumn = 24;
       }
       //If a character is entered that is not a valid token, then return the error token
-      if (fsaColumn == 25){
+      if(fsaColumn == 25){
          cout << "SCANNER ERROR: Invalid character " << currCharacter << " on line " << lineNum << endl;
          return Token(ErrorTk, "Invalid character", lineNum);
       }
@@ -100,10 +100,10 @@ Token scanner(ifstream &inFile, int &lineNum){
       //check if the next state is a final state
       if (nextState == 24 || nextState == 25 || nextState >= 100){
          //If the next state is eof then return the eoftk
-         if (nextState == 24){
+         if(nextState == 24){
             return Token(EofTk, "EOF", 0);
          }
-         if (nextState == 25){
+         if(nextState == 25){
             //If a character is entered that is not valid, then show the details and return the error token
             cout << "SCANNER ERROR: Invalid character" << currCharacter << " on line " << lineNum << endl;
             return Token(ErrorTk, "Invalid ID", lineNum);
@@ -111,7 +111,7 @@ Token scanner(ifstream &inFile, int &lineNum){
          //states for keywords and symbols return the token
          inFile.unget();
          return getToken(nextState, currWord, lineNum);
-      } else{
+      }else{
          //if current character is <, get the next character if there is no space and the next character is =
          if(!isspace(currCharacter) && currCharacter == '<'){
             inFile.get(currCharacter);
@@ -179,29 +179,29 @@ Token getToken(int state, string word, int lineNum){
 }
 
 //Getter for the column in the fsa table
-int getColumn(char currCharacter)
-{
+int getColumn(char currCharacter){
     //Input value is a letter, return column 1 from the fsa table
-    if (isalpha(currCharacter)){
-        if(isupper(currCharacter))
-            return 25;
-        return 1;
-    }
-    //Input value is an integer, return column 2 from the fsa table
-    else if (isdigit(currCharacter))
-        return 2;
-    //Input value is a whitespace, return column 0 from the fsa table
-    else if (isspace(currCharacter))
-        return 0;
-    //If it has reached the end of the file, return column 24
-    else if (currCharacter == EOF)
-        return 24;
-    //Check if the symbol is in the symbol map
-    else{
+   if (isalpha(currCharacter)){
+      if(isupper(currCharacter))
+         return 25;
+      return 1;
+   }
+   //Input value is an integer, return column 2 from the fsa table
+   else if (isdigit(currCharacter))
+      return 2;
+   //Input value is a whitespace, return column 0 from the fsa table
+   else if (isspace(currCharacter))
+      return 0;   
+   //If it has reached the end of the file, return column 24 
+   else if (currCharacter == EOF)
+      return 24;
+   //Check if the symbol is in the symbol map
+   else{
       //return the column if it is in the symbol map,
-      if (symbolTokens.find(currCharacter) != symbolTokens.end())
+      if (symbolTokens.find(currCharacter) != symbolTokens.end()){
          return symbolTokens[currCharacter];
-    }
-    //return error token because the symbol isn't allowed
-    return 25;
+      }
+   }
+   //return error token because the symbol isn't allowed
+   return 25;
 }

@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include "parser.h"
+#include "testTree.h"
 using namespace std;
 
 int main (int argc, char** argv){
@@ -20,7 +21,6 @@ int main (int argc, char** argv){
    else if(argc == 2){
       string file = argv[1];
       //add extension .fs19 and open the file
-      ifstream inFile;
       inFile.open(file + ".fs19");
       
       //if the file isn't opened
@@ -30,7 +30,7 @@ int main (int argc, char** argv){
       }
 
       Node* root = parser();
-      print_tree(root);
+      treePrinted(root);
 
       inFile.close();
    }
@@ -52,12 +52,11 @@ int main (int argc, char** argv){
       char currCharacter;
       while (cin >> noskipws >> currCharacter)
          keyInputFile << currCharacter;
-      
+
       //close the keyboard input fie
       keyInputFile.close();
     
       //keyboard input file
-      ifstream inFile;
       inFile.open("keyboard.txt");
 
       //make sure inFile keyboard.txt is there
@@ -66,7 +65,8 @@ int main (int argc, char** argv){
          return 0;
       }
       
-      parser();
+      Node* root = parser();
+      treePrinted(root);
    
       inFile.close();
    }
