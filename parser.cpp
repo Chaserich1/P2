@@ -70,12 +70,10 @@ Node* block(int treeDepth){
          return node;
       }else{
          cout << "Parsing Error on line: " << lineNum << "\nToken Expected: StopTk\nToken Received: " << allTokens[tkn.identiToken] << endl;
-         //scannerError(StopTk, tkn);
          exit(EXIT_FAILURE);
       }
    }else{
       cout << "Parsing Error on line: " << lineNum << "\nToken Expected: StartTk\nToken Received: " << allTokens[tkn.identiToken] << endl;
-      //scannerError(StartTk, tkn);
       exit(EXIT_FAILURE);
    }
 }
@@ -102,17 +100,14 @@ Node* vars(int treeDepth){
                return node;
             }else{
                cout << "Parsing Error on line: " << lineNum << "\nToken Expected: IntTk\nToken Received: " << allTokens[tkn.identiToken] << endl;
-               //scannerError(IntTk, tkn);
                exit(EXIT_FAILURE);
             }
          }else{
             cout << "Parsing Error on line: " << lineNum << "\nToken Expected: ColonTk\nToken Received: " << allTokens[tkn.identiToken] << endl;
-            //scannerError(ColonTk, tkn);
             exit(EXIT_FAILURE);
          }
       }else{
          cout << "Parsing Error on line: " << lineNum << "\nToken Expected: IdTk\nToken Received: " << allTokens[tkn.identiToken] << endl;
-         //scannerError(IdTk, tkn);
          exit(EXIT_FAILURE);
       }
    }else{
@@ -227,7 +222,6 @@ Node* stats(int treeDepth){
       return node;
    }else{
       cout << "Parsing Error on line: " << lineNum << "\nToken Expected: SemiColonTk\nToken Received: " << allTokens[tkn.identiToken] << endl;
-      //scannerError(SemiColonTk, tkn);
       exit(EXIT_FAILURE);
    }
    return node;
